@@ -78,15 +78,17 @@ public sealed partial class ResearchSystem
             || prototype.Cost * clientDatabase.SoftCapMultiplier > researchServer.Points)
             return false;
 
+        /*
         if (prototype.Tier >= disciplinePrototype.LockoutTier)
         {
             clientDatabase.SoftCapMultiplier *= prototype.SoftCapContribution;
             researchServer.CurrentSoftCapMultiplier *= prototype.SoftCapContribution;
         }
+        */
 
         AddTechnology(serverEnt.Value, prototype);
         TrySetMainDiscipline(prototype, serverEnt.Value);
-        ModifyServerPoints(serverEnt.Value, -(int) (prototype.Cost * clientDatabase.SoftCapMultiplier));
+        ModifyServerPoints(serverEnt.Value, -(int) (prototype.Cost));
         UpdateTechnologyCards(serverEnt.Value);
 
         _adminLog.Add(LogType.Action, LogImpact.Medium,
